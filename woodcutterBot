@@ -47,7 +47,7 @@
     end
      
     function cutTree()
-            turtle.select(slotTree)
+            turtle.select(saplingSlot)
             while not turtle.compare() do
                     turtle.place()
             end
@@ -63,7 +63,7 @@
             while not  isOnTrack() do
                     turtle.down()
             end
-            turtle.select(slotTree)
+            turtle.select(saplingSlot)
             turtle.place()
             turtle.turnLeft()
             turtle.turnLeft()
