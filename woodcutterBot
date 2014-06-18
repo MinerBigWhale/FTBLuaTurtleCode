@@ -1,101 +1,100 @@
+woodSlot = 1
+extraSlot = 2
+saplingSlot = 3
 
-    woodSlot = 1
-    extraSlot = 2
-    saplingSlot = 3
-    
-    startTSlot = 6
-    TSlot = 7
-    endTSlot = 8
-    
-    coalSlot = 12
-     
-    function Stock()
-            turtle.turnRight()
-            turtle.select(coalSlot)
-            if turtle.getFuelLevel() < 800 then
-                    turtle.suck()
-                    turtle.refuel()
-            end
-            turtle.turnLeft()
-            turtle.select(woodSlot)
-            turtle.drop(turtle.getItemCount(woodSlot)-1)
-            turtle.select(extraSlot)
-            turtle.drop(turtle.getItemCount(extraSlot)-1)
-            turtle.turnLeft()
-            turtle.select(saplingSlot)
-            if turtle.getItemCount(saplingSlot) < 3 then
-                    turtle.suck()
-            end
-            turtle.turnLeft()
-            turtle.forward()
-    end
-     
-    function isOnTrack()
-            turtle.select(startTSlot)
-            if turtle.compareDown() then
-                    return 1
-            end
-            turtle.select(TSlot)
-            if turtle.compareDown() then
-                    return 2
-            end
-            turtle.select(endTSlot)
-            if turtle.compareDown() then
-                    return 3
-            end
-            return false
-    end
-     
-    function cutTree()
-            turtle.select(saplingSlot)
-            while not turtle.compare() do
-                    turtle.place()
-            end
-            turtle.select(woodSlot)
-            while not turtle.compare() do
-                    os.sleep(1)
-            end
-            while turtle.detect() do
-                    turtle.dig()
-                    turtle.digUp()
-                    turtle.up()
-            end
-            while not  isOnTrack() do
-                    turtle.down()
-            end
-            turtle.select(saplingSlot)
-            turtle.place()
-            turtle.turnLeft()
-            turtle.turnLeft()
-            turtle.forward()
-    end
-    
-    function main()
-            while true do
-                    if isOnTrack() == 2 then
-                            turtle.forward()
-                    else
-                            if isOnTrack() == 3 then
-                                    cutTree()
-                            else
-                                    Stock()
-                            end
-                    end   
-            end    
-    end
-     
-    function init()
-            turtle.select(coalSlot)
-            turtle.refuel(1)
-            local i = true
-            while i do
-                     if not isOnTrack() then
-                            if not turtle.down() then
-                                    i = false
-                            end
-                    else
-                            i = false
-                    end          
-            end
-            main()
-    end
+startTSlot = 6
+TSlot = 7
+endTSlot = 8
+
+coalSlot = 12
+ 
+function Stock()
+        turtle.turnRight()
+        turtle.select(coalSlot)
+        if turtle.getFuelLevel() < 800 then
+                turtle.suck()
+                turtle.refuel()
+        end
+        turtle.turnLeft()
+        turtle.select(woodSlot)
+        turtle.drop(turtle.getItemCount(woodSlot)-1)
+        turtle.select(extraSlot)
+        turtle.drop(turtle.getItemCount(extraSlot)-1)
+        turtle.turnLeft()
+        turtle.select(saplingSlot)
+        if turtle.getItemCount(saplingSlot) < 3 then
+                turtle.suck()
+        end
+        turtle.turnLeft()
+        turtle.forward()
+end
+ 
+function isOnTrack()
+        turtle.select(startTSlot)
+        if turtle.compareDown() then
+                return 1
+        end
+        turtle.select(TSlot)
+        if turtle.compareDown() then
+                return 2
+        end
+        turtle.select(endTSlot)
+        if turtle.compareDown() then
+                return 3
+        end
+        return false
+end
+ 
+function cutTree()
+        turtle.select(saplingSlot)
+        while not turtle.compare() do
+                turtle.place()
+        end
+        turtle.select(woodSlot)
+        while not turtle.compare() do
+                os.sleep(1)
+        end
+        while turtle.detect() do
+                turtle.dig()
+                turtle.digUp()
+                turtle.up()
+        end
+        while not  isOnTrack() do
+                turtle.down()
+        end
+        turtle.select(saplingSlot)
+        turtle.place()
+        turtle.turnLeft()
+        turtle.turnLeft()
+        turtle.forward()
+end
+
+function main()
+        while true do
+                if isOnTrack() == 2 then
+                        turtle.forward()
+                else
+                        if isOnTrack() == 3 then
+                                cutTree()
+                        else
+                                Stock()
+                        end
+                end   
+        end    
+end
+ 
+function init()
+        turtle.select(coalSlot)
+        turtle.refuel(1)
+        local i = true
+        while i do
+                 if not isOnTrack() then
+                        if not turtle.down() then
+                                i = false
+                        end
+                else
+                        i = false
+                end          
+        end
+        main()
+end
