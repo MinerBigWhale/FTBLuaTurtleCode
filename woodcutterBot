@@ -10,7 +10,7 @@
     coalSlot = 12
      
     function Stock()
-            turtle.turnLeft()
+            turtle.turnRight()
             turtle.select(coalSlot)
             if turtle.getFuelLevel() < 800 then
                     turtle.suck()
@@ -27,6 +27,7 @@
                     turtle.suck()
             end
             turtle.turnLeft()
+            turtle.forward()
     end
      
     function isOnTrack()
@@ -59,11 +60,14 @@
                     turtle.digUp()
                     turtle.up()
             end
-            while isOnTrack() == 0 do
+            while not  isOnTrack() do
                     turtle.down()
             end
             turtle.select(slotTree)
             turtle.place()
+            turtle.turnLeft()
+            turtle.turnLeft()
+            turtle.forward()
     end
     
     function main()
@@ -72,12 +76,9 @@
                             turtle.forward()
                     else
                             if isOnTrack() == 3 then
-                                    turtle.turnLeft()
-                                    turtle.turnLeft()
-                                    turtle.forward()
+                                    cutTree()
                             else
                                     Stock()
-                                    turtle.forward()
                             end
                     end   
             end    
